@@ -9,6 +9,8 @@ they (or the adult next to them) never have to remember the system.
 
 It is meant to be printed. Screens work too, but paper is the point.
 
+<img src="docs/page.png" alt="A rendered page: the key at top, then the story with vowel marks, hearts, and shaded chunks" width="480">
+
 ## The idea
 
 English letters get you close to the word, but they aren't enough to actually
@@ -69,6 +71,8 @@ professional of any kind.
 
 **Vowels.** Underlines describe what a vowel is doing:
 
+<img src="docs/vowels.png" alt="hop hope bit bite / moon book cow saw / car her water about, with the vowel marks" width="440">
+
 - no mark — a short vowel saying its usual sound (*cat*, *pond*). Optionally, a
   faint dotted underline for the very first weeks.
 - straight underline — a long vowel: *she*, *time*, *rain*, *night*.
@@ -84,6 +88,8 @@ you want to experiment.
 
 **Consonants and silent letters.**
 
+<img src="docs/consonants.png" alt="cake knight city giant / said was of rough, showing silent letters, soft c and g, and hearts" width="440">
+
 - Two letters that make one sound (*sh*, *ch*, *th*, *ck*, *ng*, *tch*, *dge*)
   are set very slightly closer together — something felt rather than read.
 - Silent letters are grayed out with a dotted underline: the *e* in *cake*, the
@@ -94,7 +100,10 @@ you want to experiment.
   says *v*), the *gh* in *rough*.
 
 **Chunks.** Each word is broken into decoding chunks shown by alternating white
-and light-gray shading, always starting white. The default chunking is
+and light-gray shading, always starting white.
+
+<img src="docs/chunks.png" alt="big fish rabbit table, with alternating chunk shading" width="440">
+ The default chunking is
 "body + coda": the consonant is kept attached to the vowel that follows it —
 *ca·t*, *fi·sh*, *ra·bbi·t* — because a child who sounds out "buh–ih–guh"
 inserts vowels that aren't there, while "bi" then "g" doesn't have that problem.
@@ -103,7 +112,8 @@ plain gap instead of shading.
 
 **Typography.** Large type (about 22pt), wide word spacing, generous line
 spacing, and short lines that you control with line breaks. The face is Andika,
-SIL's literacy font, with a single-storey *a* and clear letter shapes.
+SIL's literacy font, chosen for its clear letter shapes and for letters that
+follow handwriting conventions.
 
 ## The keys
 
