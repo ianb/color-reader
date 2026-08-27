@@ -1,5 +1,5 @@
-import { ALL_CUES, vowelFamily, type CueKind, type VowelFamily, type VowelSound, type WordAnalysis } from '../lexicon/types';
-import { CUE_META, chooseExemplars, exemplarsByCue, spellingOf } from './exemplars';
+import { ALL_CUES, cuesOf, vowelFamily, type CueKind, type VowelFamily, type VowelSound, type WordAnalysis } from '../lexicon/types';
+import { CUE_META, exemplarsByCue, spellingOf } from './exemplars';
 import { Word } from './Word';
 import type { ChunkMode } from './chunks';
 import type { ColorMode } from './Page';
@@ -66,10 +66,36 @@ function buildRows(byCue: Map<CueKind, WordAnalysis[]>, colorMode: ColorMode): R
   return rows;
 }
 
+/**
+ * Give each row its own example word where possible: rows with the fewest
+ * candidates choose first, and each picks the unused word with the fewest
+ * other cues (the "purest" example). A word is reused only when nothing
+ * else on the page exhibits that cue.
+ */
+function assignExemplars(rows: Row[], includeShort: boolean): void {
+  const used = new Set<string>();
+  const cueCount = (w: WordAnalysis) => cuesOf(w, includeShort).size;
+  const order = [...rows].sort((a, b) => a.words.length - b.words.length);
+  for (const row of order) {
+    const ranked = [...row.words].sort((a, b) => cueCount(a) - cueCount(b));
+    const pick = ranked.find((w) => !used.has(w.word.toLowerCase())) ?? ranked[0];
+    if (!pick) continue;
+    used.add(pick.word.toLowerCase());
+    row.words = [pick];
+  }
+}
+
 export function Key({ words, known, position, readerClass, chunkMode, markShort, colorMode = 'family' }: KeyProps) {
-  const exemplars = chooseExemplars(words, known, markShort);
-  const byCue = exemplarsByCue(exemplars, markShort);
+  const seen = new Set<string>();
+  const candidates = words.filter((w) => {
+    const k = w.word.toLowerCase();
+    if (seen.has(k) || (known && !known.has(k))) return false;
+    seen.add(k);
+    return true;
+  });
+  const byCue = exemplarsByCue(candidates, markShort);
   const rows = buildRows(byCue, colorMode);
+  assignExemplars(rows, !!markShort);
   if (rows.length === 0) return null;
   const wide = rows.length > 6;
   return (
