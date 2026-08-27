@@ -56,8 +56,11 @@ The easiest way to understand it is to **[open the site](https://ianb.github.io/
 and look — there's nothing hidden, though it may not be self-explanatory at
 first glance.
 
-This is an experiment. It comes out of a medium amount of experience reading
-with beginning readers — not extensive — and a medium amount of thought. Getting
+This is an experiment, and an early one: I haven't actually tried it with a
+child yet. I probably will a little, since there are kids in my life to read
+with, but it isn't under any real study. It comes out of a medium amount of
+experience reading with beginning readers — not extensive — and a medium amount
+of thought. Getting
 through the decoding stage is genuinely hard: you fight your way through word by
 word, and some of the appeal of whole-word approaches is that the finished
 reader really does end up recognizing whole words. But you have to get there
