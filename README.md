@@ -12,59 +12,56 @@ It is meant to be printed. Screens work too, but paper is the point.
 ## The idea
 
 English letters get you close to the word, but they aren't enough to actually
-decode it. A beginning reader who knows the letter sounds still can't get from
-*said* or *night* or *once* to the spoken word by sounding alone. Most of what I
-do when I read with a beginning reader is supply the missing bit — sometimes on
-every single word.
+decode it. A beginning reader who knows the letter sounds still has to know
+that the *o* in *hop* and the *o* in *hope* are different sounds, that *bit*
+and *bite* don't rhyme, that the *c* in *cat* and the *c* in *city* aren't the
+same — and that *said*, *night* and *once* can't really be sounded out at all.
+Most of what the adult helping does, when reading with a beginning reader, is
+supply that missing bit — sometimes on every single word.
 
-Color Reader doesn't try to fix that by changing the letters, inventing new
+Color Reader doesn't try to fix this by changing the letters, inventing new
 ones, or controlling which words are allowed. It leaves the text alone and adds
-a little extra information on top, the same information I'd be supplying out
-loud:
+a little extra information on top: the same information the helper would be
+supplying out loud.
 
-- **How to chunk the word.** Take *big*. If you say *b*, then *i*, then *g*,
-  it's very hard to put the *b* and the *i* back together — the child ends up
-  with "buh-ih-guh". It works much better to read *bi* as one piece and then
-  add the *g*. A consonant on its own at the start of a word is a bad pattern,
-  but it's how most people naturally prompt, and in my experience it just
-  doesn't help. Syllables aren't quite the right unit either. So the page
-  shows a chunking — by default consonant-plus-vowel, then what's left —
-  with light shading.
+- **How to chunk the word.** Take *big*. If the child says *buh*, then *ih*,
+  then *guh*, those three pieces don't go back together into *big* — the
+  extra *uh* sounds get in the way. It works much better to read *bi* as one
+  piece and then add the *g*. Starting with a lone consonant is a bad
+  pattern, but it is what almost everyone does by instinct, and the helper
+  ends up fighting it with every child. Syllables aren't quite the right unit
+  either. So the page shows a chunking — by default consonant-plus-vowel,
+  then what's left — with light shading.
 - **Which sound the vowel is making.** Vowels are badly overloaded. The page
   marks them consistently: nothing for the ordinary short sound, and a small
   set of marks for the long sound, vowel teams, the "bossy r" combinations,
-  and the mumbled schwa. The same mark means the same thing whatever the
-  spelling.
+  and the schwa — the mumbled vowel in the *a* of *about* or the *o* of
+  *button*. The same mark means the same thing whatever the spelling.
 - **Alternate consonants.** Consonants do this too, less often — the two
   *c*'s, the two *g*'s — and those get a mark.
-- **Words that just don't work.** Some words can't be decoded; you have to
-  learn them. (They go by "sight words" or "heart words".) Those get a heart
-  on the letter that misbehaves, so there's at least an awareness that this
-  one is different, and a small list on the page spelling out how each one
-  actually sounds.
+- **Words that just don't work.** Some words can't be decoded; they have to
+  be learned. These are usually called *sight words* or *heart words*. They
+  get a heart on the letter that misbehaves, so there's at least an awareness
+  that this one is different, and a small list on the page spelling out how
+  each one actually sounds.
 - **A key, on every page.** The page carries its own key, built from the
   words on that page, so that one page has everything needed to read that
   one page. The key is really for the adult helping; the heart-word list is
   something the child can actually use.
 
-None of this is a proprietary system — there are other markup schemes like it,
-and the ideas are borrowed from several. What's a bit different is that it's
-dynamic: it isn't a set of specific readers. Paste in any text and it makes a
-self-explaining page out of it. Ideally that page is printed.
+There are other markup schemes like this. This one is not proprietary; it is
+dynamic — not a set of specific readers, but something you can paste any text
+into and get a self-explaining page out of, ideally printed; and it is a
+starting point for further experimentation rather than a fixed system. It also
+combines a few things the author has found helpful but hasn't seen together.
 
 The easiest way to understand it is to **[open the site](https://ianb.github.io/color-reader/)**
 and look — there's nothing hidden, though it may not be self-explanatory at
 first glance.
 
-This is an experiment, and an early one: I haven't actually tried it with a
-child yet. I probably will a little, since there are kids in my life to read
-with, but it isn't under any real study. It comes out of a medium amount of
-experience reading with beginning readers — not extensive — and a medium amount
-of thought. Getting
-through the decoding stage is genuinely hard: you fight your way through word by
-word, and some of the appeal of whole-word approaches is that the finished
-reader really does end up recognizing whole words. But you have to get there
-through the fight, and this is an attempt to make the fight a little easier.
+This is an experiment, and an early one: it hasn't been tried with a child yet.
+I hope to do that some, with kids in my life, but I'm not a pedagogical
+professional of any kind.
 
 — Ian Bicking
 
