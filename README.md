@@ -11,45 +11,59 @@ It is meant to be printed. Screens work too, but paper is the point.
 
 ## The idea
 
-A five-year-old sounding out *said* or *knight* or *cake* is fighting the fact
-that English letters don't do the same job every time. Most phonics programs
-handle this by controlling the words: "decodable" readers only use patterns the
-child has been taught. That works, but the stories are dull and the child can't
-read anything else.
+English letters get you close to the word, but they aren't enough to actually
+decode it. A beginning reader who knows the letter sounds still can't get from
+*said* or *night* or *once* to the spoken word by sounding alone. Most of what I
+do when I read with a beginning reader is supply the missing bit — sometimes on
+every single word.
 
-Color Reader takes the opposite approach: leave the text alone and annotate it.
-Every letter keeps its identity and its place. Marks appear only where a letter
-is *not* doing its ordinary job, so that plain, unmarked text is the reward
-state, and the marks can fade away as the child no longer needs them.
+Color Reader doesn't try to fix that by changing the letters, inventing new
+ones, or controlling which words are allowed. It leaves the text alone and adds
+a little extra information on top, the same information I'd be supplying out
+loud:
 
-The principles behind the design:
-
-- **A diff against the default.** A short vowel on its own letter (*cat*, *bed*)
-  is the default and needs no mark. A long vowel, a vowel team, a silent letter,
-  a soft *c* — those are departures, and get a mark. The reader learns to trust
-  unmarked letters.
-- **Same mark for the same job, whatever the spelling.** The long-*a* in *cake*,
-  *rain*, *play* and *eight* all look the same to the reader. The mark describes
-  the sound, not the spelling.
-- **Letters stay letters.** No new glyphs, no joined digraphs, no rewriting of
-  the word. The Initial Teaching Alphabet of the 1960s taught children to read
-  its special alphabet and then had trouble moving them to normal print; Color
-  Reader never shows the child anything but normal print.
-- **Color is never the only cue.** Every color is paired with a shape (an
-  underline, a dot, a bracket), so the system works in black and white and for
-  the roughly one in twelve boys who are red-green color-deficient. In practice
-  the shapes turned out to carry most of the meaning, and color is now just
-  reinforcement.
-- **Don't recode letters.** An earlier version colored every vowel by its
-  precise sound, so the *ai* in *said* was painted "short e". That is exactly
-  the trap of Gattegno's *Words in Color* (1962), whose forty-odd colors were
-  effective but taught children the colors instead of the letters. The current
-  scheme uses a handful of coarse categories and leaves the rest to the marks
-  and the key.
-- **Be honest about the weird ones.** Some spellings can't be explained, only
-  remembered. Those get a heart — the "heart word" convention many classrooms
-  already use — and a separate mini-key that spells the word the way it
+- **How to chunk the word.** Take *big*. If you say *b*, then *i*, then *g*,
+  it's very hard to put the *b* and the *i* back together — the child ends up
+  with "buh-ih-guh". It works much better to read *bi* as one piece and then
+  add the *g*. A consonant on its own at the start of a word is a bad pattern,
+  but it's how most people naturally prompt, and in my experience it just
+  doesn't help. Syllables aren't quite the right unit either. So the page
+  shows a chunking — by default consonant-plus-vowel, then what's left —
+  with light shading.
+- **Which sound the vowel is making.** Vowels are badly overloaded. The page
+  marks them consistently: nothing for the ordinary short sound, and a small
+  set of marks for the long sound, vowel teams, the "bossy r" combinations,
+  and the mumbled schwa. The same mark means the same thing whatever the
+  spelling.
+- **Alternate consonants.** Consonants do this too, less often — the two
+  *c*'s, the two *g*'s — and those get a mark.
+- **Words that just don't work.** Some words can't be decoded; you have to
+  learn them. (They go by "sight words" or "heart words".) Those get a heart
+  on the letter that misbehaves, so there's at least an awareness that this
+  one is different, and a small list on the page spelling out how each one
   actually sounds.
+- **A key, on every page.** The page carries its own key, built from the
+  words on that page, so that one page has everything needed to read that
+  one page. The key is really for the adult helping; the heart-word list is
+  something the child can actually use.
+
+None of this is a proprietary system — there are other markup schemes like it,
+and the ideas are borrowed from several. What's a bit different is that it's
+dynamic: it isn't a set of specific readers. Paste in any text and it makes a
+self-explaining page out of it. Ideally that page is printed.
+
+The easiest way to understand it is to **[open the site](https://ianb.github.io/color-reader/)**
+and look — there's nothing hidden, though it may not be self-explanatory at
+first glance.
+
+This is an experiment. It comes out of a medium amount of experience reading
+with beginning readers — not extensive — and a medium amount of thought. Getting
+through the decoding stage is genuinely hard: you fight your way through word by
+word, and some of the appeal of whole-word approaches is that the finished
+reader really does end up recognizing whole words. But you have to get there
+through the fight, and this is an attempt to make the fight a little easier.
+
+— Ian Bicking
 
 ## What the marks mean
 
@@ -124,12 +138,6 @@ checked and added to the hand list.
 Syllable splits follow decoding conventions rather than dictionary hyphenation
 (*rab-bit*, *ti-ger*, *ta-ble*), so that the split explains the vowel: an open
 syllable ends in a vowel, and that vowel is long.
-
-## Status
-
-This is an experiment in progress. The marks, the spacing, the colors, and the
-chunking are all being tried out on real children and adjusted. Nothing here is
-settled.
 
 ## Development
 
