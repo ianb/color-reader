@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FullKey, Page, ProofSheet, type ReaderOptions } from '../render';
+import { About } from './About';
 
 const STORAGE_KEY = 'color-reader-state-v5';
 
@@ -57,6 +58,7 @@ const inputCls = 'border border-gray-300 rounded px-1 py-0.5 text-xs bg-white';
 
 export default function App() {
   const [state, setState] = useState<AppState>(loadState);
+  const [aboutOpen, setAboutOpen] = useState(false);
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -89,7 +91,14 @@ export default function App() {
             <option value="proof">Proof sheet</option>
             <option value="fullkey">Full key</option>
           </select>
+          <button
+            className="text-xs text-blue-700 underline ml-auto"
+            onClick={() => setAboutOpen(true)}
+          >
+            About
+          </button>
         </div>
+        <About open={aboutOpen} onClose={() => setAboutOpen(false)} />
 
         <label className={labelCls.replace('flex items-center gap-2', '')}>
           Title
