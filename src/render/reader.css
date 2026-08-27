@@ -1,0 +1,422 @@
+/*
+ * Reading-text stylesheet (brief §4). The color-to-meaning mapping is fixed:
+ *   vowel sound  = one color per SOUND (.v-A, .v-oo, ...; same across spellings)
+ *   family mark  = non-color redundancy: long = straight underline; r = bracket below (grouping); other teams = wavy
+ *                  underline; r-controlled = solid underline; schwa = dot below;
+ *                  short = unmarked on its own letter; colored + dotted underline
+ *                  when spelled irregularly (said: ai→e) or via .mark-short
+ *   digraph      = tie under (rounded bottom border) + slight tightening
+ *   silent       = gray + dotted underline
+ *   soft c/g     = small cedilla-like dot below
+ *   heart        = small heart above
+ *   syllable     = 0.1em gap (mode-gap) or alternating band (mode-band, default) between decoding chunks
+ * Body text is dark navy, never pure black (print constraint, brief §2).
+ */
+.reader {
+  --ink: #1f2a44;
+  --ink-silent: #8a8f9c;
+  /* one color per vowel sound (see vowels.ts VOWEL_META; keep in sync) */
+  --v-a: #c0392b;
+  --v-e: #2e86ab;
+  --v-i: #8e6c0a;
+  --v-o: #6c3483;
+  --v-u: #1e8449;
+  --v-A: #1d5fc4;
+  --v-E: #0f8a3e;
+  --v-I: #c81e5b;
+  --v-O: #e0700f;
+  --v-U: #7a3fc4;
+  --v-oo: #0e8a8f;
+  --v-uu: #8a7a12;
+  --v-ow: #b0361f;
+  --v-oy: #c4269a;
+  --v-aw: #4f6d1c;
+  --v-uh: #6b6b8a;
+  --v-ar: #7a2e14;
+  --v-or: #4a3a8c;
+  --v-er: #4d5e1f;
+  --v-air: #8c4a1e;
+  --v-eer: #1f5e6b;
+  --band: #e0e3ea;
+  --tie: #3a4560;
+  --font-size: 22pt;
+  --line-height: 2.4;
+
+  font-family: 'Andika', 'Lexend', sans-serif;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  color: var(--ink);
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  /* early-reader convention: word space clearly wider than any syllable gap */
+  word-spacing: 0.33em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+
+.reader .line {
+  /* The author's newlines are the line breaks; wrap only if a line
+     can't fit the page width. */
+  white-space: normal;
+}
+.reader .para + .para {
+  margin-top: 0.6em;
+}
+
+.reader .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.reader .word.src-unknown {
+  /* plain, no marks */
+}
+
+/* ---- decoding chunks ---- */
+/* Chunks alternate white / band, always starting white on each word. */
+.reader .chunk {
+  display: inline-block;
+  /* Band hugs the letters (x-height + ascender/descender), not the leading. */
+  line-height: 1.25;
+}
+.reader.mode-gap .chunk + .chunk {
+  margin-left: 0.1em;
+}
+.reader.mode-band .chunk {
+  padding: 0 0.04em;
+  border-radius: 0.15em;
+}
+.reader.mode-band .chunk-b {
+  background: var(--band);
+}
+
+/* ---- graphemes ---- */
+.reader .g {
+  position: relative;
+  display: inline-block;
+}
+
+/* ---- color modes ----
+   color-none:   ink only; the shape marks carry everything.
+   color-family: one color per family (long / team / bossy r / schwa) —
+                 purely redundant with the shape mark. Default.
+   color-sound:  one color per vowel sound (experimental; recodes letters). */
+.reader {
+  --fam-long: #1d5fc4;
+  --fam-other: #0e8a8f;
+  --fam-r: #7a2e14;
+  --fam-schwa: #6b6b8a;
+  --fam-short: #7c8aa5;
+}
+.reader.color-family .fam-long { color: var(--fam-long); text-decoration-color: var(--fam-long); }
+.reader.color-family .fam-other { color: var(--fam-other); text-decoration-color: var(--fam-other); }
+.reader.color-family .fam-r { color: var(--fam-r); text-decoration-color: var(--fam-r); }
+.reader.color-family .fam-schwa { color: var(--fam-schwa); text-decoration-color: var(--fam-schwa); }
+.reader.color-family.mark-short .fam-short { color: var(--fam-short); text-decoration-color: var(--fam-short); }
+
+/* per-sound color (short vowels only when .mark-short or irregular spelling) */
+.reader.color-sound.mark-short .v-a, .reader.color-sound .v-marked.v-a { color: var(--v-a); text-decoration-color: var(--v-a); }
+.reader.color-sound.mark-short .v-e, .reader.color-sound .v-marked.v-e { color: var(--v-e); text-decoration-color: var(--v-e); }
+.reader.color-sound.mark-short .v-i, .reader.color-sound .v-marked.v-i { color: var(--v-i); text-decoration-color: var(--v-i); }
+.reader.color-sound.mark-short .v-o, .reader.color-sound .v-marked.v-o { color: var(--v-o); text-decoration-color: var(--v-o); }
+.reader.color-sound.mark-short .v-u, .reader.color-sound .v-marked.v-u { color: var(--v-u); text-decoration-color: var(--v-u); }
+.reader.color-sound .v-A { color: var(--v-A); text-decoration-color: var(--v-A); }
+.reader.color-sound .v-E { color: var(--v-E); text-decoration-color: var(--v-E); }
+.reader.color-sound .v-I { color: var(--v-I); text-decoration-color: var(--v-I); }
+.reader.color-sound .v-O { color: var(--v-O); text-decoration-color: var(--v-O); }
+.reader.color-sound .v-U { color: var(--v-U); text-decoration-color: var(--v-U); }
+.reader.color-sound .v-oo { color: var(--v-oo); text-decoration-color: var(--v-oo); }
+.reader.color-sound .v-uu { color: var(--v-uu); text-decoration-color: var(--v-uu); }
+.reader.color-sound .v-ow { color: var(--v-ow); text-decoration-color: var(--v-ow); }
+.reader.color-sound .v-oy { color: var(--v-oy); text-decoration-color: var(--v-oy); }
+.reader.color-sound .v-aw { color: var(--v-aw); text-decoration-color: var(--v-aw); }
+.reader.color-sound .v-uh { color: var(--v-uh); text-decoration-color: var(--v-uh); }
+.reader.color-sound .v-ar { color: var(--v-ar); text-decoration-color: var(--v-ar); }
+.reader.color-sound .v-or { color: var(--v-or); text-decoration-color: var(--v-or); }
+.reader.color-sound .v-er { color: var(--v-er); text-decoration-color: var(--v-er); }
+.reader.color-sound .v-air { color: var(--v-air); text-decoration-color: var(--v-air); }
+.reader.color-sound .v-eer { color: var(--v-eer); text-decoration-color: var(--v-eer); }
+
+/* family shape marks */
+.reader .v-A,
+.reader .v-E,
+.reader .v-I,
+.reader .v-O,
+.reader .v-U {
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.07em;
+}
+.reader .v-oo,
+.reader .v-uu,
+.reader .v-ow,
+.reader .v-oy,
+.reader .v-aw {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 0.06em;
+}
+.reader .v-ar,
+.reader .v-or,
+.reader .v-er,
+.reader .v-air,
+.reader .v-eer {
+  text-decoration-line: none;
+}
+/* Bossy r: a grouping bracket under the vowel+r unit. */
+.reader .fam-r::after {
+  content: '';
+  position: absolute;
+  left: 0.04em;
+  right: 0.04em;
+  bottom: -0.1em;
+  height: 0.18em;
+  border: 0.06em solid currentColor;
+  border-top: none;
+  border-radius: 0 0 0.25em 0.25em;
+  pointer-events: none;
+}
+.reader .v-uh::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -0.06em;
+  width: 0.12em;
+  height: 0.12em;
+  margin-left: -0.06em;
+  border-radius: 50%;
+  background: var(--v-uh);
+}
+.reader.mark-short .v-a,
+.reader.mark-short .v-e,
+.reader.mark-short .v-i,
+.reader.mark-short .v-o,
+.reader.mark-short .v-u, .reader .v-marked.v-u {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.06em;
+}
+
+/* Digraph: tie under via a rounded bottom border, plus felt-not-read
+   tightening between the letters. letter-spacing adds space after every
+   letter including the last, so the trailing slot is pulled back with a
+   negative margin equal to the tightening. */
+.reader .digraph {
+  letter-spacing: -0.04em;
+  margin-right: 0.04em;
+}
+/* Digraph: tightening only (felt, not read); no tie mark. */
+
+.reader .silent {
+  color: var(--ink-silent);
+  text-decoration: underline dotted;
+  text-decoration-color: var(--ink-silent);
+  text-decoration-thickness: 0.06em;
+}
+
+.reader .soft::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -0.02em;
+  width: 0.14em;
+  height: 0.14em;
+  margin-left: -0.07em;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.reader .heart::before {
+  content: '\2665';
+  position: absolute;
+  left: 50%;
+  top: -0.1em;
+  transform: translateX(-50%);
+  font-size: 0.36em;
+  line-height: 1;
+  color: #c0392b;
+}
+
+/* ---- debug badges ---- */
+.reader .badge {
+  display: none;
+}
+.reader.show-source .word.src-rules .badge,
+.reader.show-source .word.src-unknown .badge {
+  display: inline-block;
+  vertical-align: super;
+  font-size: 0.35em;
+  line-height: 1;
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  background: #fde68a;
+  color: var(--ink);
+  margin-left: 0.1em;
+}
+.reader.show-source .word.src-unknown .badge {
+  background: #fecaca;
+}
+
+/* ---- page & key ---- */
+.page {
+  background: #fff;
+  color: #1f2a44;
+  width: 7in;
+  min-height: 9.5in;
+  padding: 0.5in;
+  margin: 0 auto;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  break-after: page;
+}
+.page-title {
+  font-family: 'Andika', 'Lexend', sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-bottom: 0.6em;
+}
+.key {
+  font-family: 'Andika', 'Lexend', sans-serif;
+  border: 1px solid #c9ced8;
+  border-radius: 0.4em;
+  padding: 0.7em 0.9em;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  column-gap: 0.7em;
+  row-gap: 0.5em;
+  align-items: center;
+  align-items: baseline;
+  font-size: 13pt;
+  color: #1f2a44;
+}
+.key.key-top { margin-bottom: 1em; }
+.key.key-bottom { margin-top: 1em; }
+.key .key-label { white-space: nowrap; }
+.key .reader {
+  font-size: 15pt;
+  line-height: 1.7;
+}
+.key.key-wide {
+  grid-template-columns: auto auto 1fr auto auto 1fr;
+  column-gap: 0.6em;
+  font-size: 11pt;
+}
+.key.key-wide .reader {
+  font-size: 13pt;
+  line-height: 1.7;
+}
+.swatch-wrap { display: inline; line-height: 1; font-size: 1em; }
+/* Swatch takes its color from the vowel classes, so it follows the color mode. */
+.swatch {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 0.2em;
+  vertical-align: -0.1em;
+  background: currentColor;
+  text-decoration: none !important;
+}
+.swatch::after { display: none !important; }
+.key .spelling {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85em;
+  color: #6b7280;
+  margin-left: 0.4em;
+}
+
+/* ---- full key page ---- */
+.fullkey {
+  font-family: 'Andika', 'Lexend', sans-serif;
+  color: #1f2a44;
+}
+.fullkey h2 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin: 0.8em 0 0.3em;
+}
+.fullkey table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12pt;
+}
+.fullkey td,
+.fullkey th {
+  text-align: left;
+  vertical-align: baseline;
+  padding: 0.15em 0.5em 0.15em 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.fullkey th {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 10pt;
+}
+.fullkey tr.family-start td {
+  border-top: 2px solid #c9ced8;
+}
+.fullkey .reader {
+  font-size: 16pt;
+  line-height: 1.5;
+}
+.fullkey .mark-desc {
+  font-size: 10pt;
+  color: #6b7280;
+}
+.fullkey .spelling {
+  font-family: ui-monospace, monospace;
+  font-size: 9pt;
+  color: #6b7280;
+  display: block;
+  line-height: 1;
+}
+.fullkey .spell {
+  display: inline-block;
+  margin-right: 0.8em;
+  text-align: center;
+}
+
+/* ---- proof sheet ---- */
+.proof {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
+  gap: 0.6em 1em;
+  background: #fff;
+  padding: 0.5in;
+}
+.proof .unit {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.3em;
+}
+.proof .unit-name {
+  font-family: ui-monospace, monospace;
+  font-size: 11pt;
+  color: #6b7280;
+}
+
+@page {
+  size: letter;
+  margin: 0.75in;
+}
+@media print {
+  body { background: #fff; }
+  .no-print { display: none !important; }
+  .page {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .proof { padding: 0; }
+}
+
+/* ---- heart-word reading key ---- */
+.heart-key {
+  font-family: 'Andika', 'Lexend', sans-serif;
+  border: 1px solid #c9ced8;
+  border-radius: 0.4em;
+  padding: 0.6em 0.9em;
+  margin-top: 1em;
+}
+.heart-key-title { font-size: 11pt; color: #4b5563; margin-bottom: 0.3em; }
+.heart-key-list { display: flex; flex-wrap: wrap; gap: 0.3em 1.6em; }
+.heart-key-list.reader { font-size: 16pt; line-height: 1.9; }
+.heart-pair { white-space: nowrap; }
+.heart-pair .arrow { color: #9ca3af; margin: 0 0.5em; }

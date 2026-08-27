@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "./render/reader.css";
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+  color: #1f2a44;
+}
