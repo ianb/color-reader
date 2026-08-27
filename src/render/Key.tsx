@@ -69,15 +69,25 @@ function buildRows(byCue: Map<CueKind, WordAnalysis[]>, colorMode: ColorMode): R
 /**
  * Give each row its own example word where possible: rows with the fewest
  * candidates choose first, and each picks the unused word with the fewest
- * other cues (the "purest" example). A word is reused only when nothing
+ * other cues (the "purest" example), skipping trivial one/two-letter words. A word is reused only when nothing
  * else on the page exhibits that cue.
  */
 function assignExemplars(rows: Row[], includeShort: boolean): void {
   const used = new Set<string>();
-  const cueCount = (w: WordAnalysis) => cuesOf(w, includeShort).size;
+  // Rank: real words before one/two-letter ones (a, I, is — poor examples
+  // since the cue is the whole word), then fewest other cues.
+  const rank = (w: WordAnalysis): [number, number] => [
+    w.word.length <= 2 ? 1 : 0,
+    cuesOf(w, includeShort).size,
+  ];
+  const cmp = (a: WordAnalysis, b: WordAnalysis) => {
+    const [ta, ca] = rank(a);
+    const [tb, cb] = rank(b);
+    return ta - tb || ca - cb;
+  };
   const order = [...rows].sort((a, b) => a.words.length - b.words.length);
   for (const row of order) {
-    const ranked = [...row.words].sort((a, b) => cueCount(a) - cueCount(b));
+    const ranked = [...row.words].sort(cmp);
     const pick = ranked.find((w) => !used.has(w.word.toLowerCase())) ?? ranked[0];
     if (!pick) continue;
     used.add(pick.word.toLowerCase());
